@@ -300,8 +300,10 @@ class Home extends BaseController
                 ?: trim((string) $this->request->getGet('mac'))
                 ?: trim((string) ($fallback['mac_address'] ?? '')),
             'ip_address' => trim((string) $this->request->getPost('ip_address', FILTER_SANITIZE_FULL_SPECIAL_CHARS))
-                ?: trim((string) ($fallback['ip_address'] ?? ''))
-                ?: (string) $this->request->getIPAddress(),
+                ?: trim((string) $this->request->getGet('ip'))
+                ?: trim((string) $this->request->getGet('ip-address'))
+                ?: trim((string) $this->request->getGet('ip_address'))
+                ?: trim((string) ($fallback['ip_address'] ?? '')),
             'hotspot_nombre' => trim((string) $this->request->getPost('hotspot_nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS))
                 ?: trim((string) $this->request->getGet('hotspot'))
                 ?: trim((string) ($fallback['hotspot_nombre'] ?? '')),
@@ -384,6 +386,7 @@ class Home extends BaseController
             'router' => $context['router_code'] ?? null,
             'hotspot' => $context['hotspot_nombre'] ?? null,
             'mac' => $context['mac_address'] ?? null,
+            'ip' => $context['ip_address'] ?? null,
             'link_login_only' => $context['link_login_only'] ?? null,
             'link_orig' => $context['link_orig'] ?? null,
         ], static fn ($value) => $value !== null && $value !== '');

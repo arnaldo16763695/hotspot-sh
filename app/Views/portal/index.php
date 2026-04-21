@@ -296,7 +296,7 @@
                         </div>
 
                         <input type="hidden" name="mac_address" value="<?= esc($old['mac_address'] ?? ($_GET['mac'] ?? '')) ?>">
-                        <input type="hidden" name="ip_address" value="<?= esc($old['ip_address'] ?? '') ?>">
+                        <input type="hidden" name="ip_address" value="<?= esc($old['ip_address'] ?? ($_GET['ip'] ?? $_GET['ip-address'] ?? '')) ?>">
                         <input type="hidden" name="hotspot_nombre" value="<?= esc($old['hotspot_nombre'] ?? ($_GET['hotspot'] ?? '')) ?>">
                         <input type="hidden" name="router_code" value="<?= esc($old['router_code'] ?? ($_GET['router'] ?? '')) ?>">
                         <input type="hidden" name="link_login_only" value="<?= esc($old['link_login_only'] ?? ($_GET['link_login_only'] ?? '')) ?>">

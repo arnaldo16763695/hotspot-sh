@@ -21,6 +21,10 @@ class HotspotAuthorizationService
         $hotspotPassword = $celular;
         $schedulerName = sprintf('%s-%s-%s', $config->schedulerPrefix, $routerCode, $hotspotUser);
 
+        if (empty($context['ip_address'])) {
+            throw new RuntimeException('No recibimos la IP del cliente desde MikroTik, por lo que no podemos loguearlo en el hotspot.');
+        }
+
         if (empty($context['mac_address']) && empty($context['ip_address'])) {
             throw new RuntimeException('No recibimos MAC ni IP del cliente para autorizarlo en el hotspot.');
         }
