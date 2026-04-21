@@ -25,6 +25,14 @@ class HotspotAuthorizationService
             throw new RuntimeException('No recibimos MAC ni IP del cliente para autorizarlo en el hotspot.');
         }
 
+        log_message('debug', 'Hotspot authorize start cliente={cliente} router={router} mac={mac} ip={ip} hotspot={hotspot}', [
+            'cliente' => $clienteId,
+            'router' => $routerCode,
+            'mac' => $context['mac_address'] ?? '',
+            'ip' => $context['ip_address'] ?? '',
+            'hotspot' => $context['hotspot_nombre'] ?? '',
+        ]);
+
         $bindingPayload = [
             'type' => 'bypassed',
             'disabled' => 'false',
@@ -42,8 +50,19 @@ class HotspotAuthorizationService
         try {
             $bindingResponse = $client->put('ip/hotspot/ip-binding', $bindingPayload);
         } catch (\Throwable $exception) {
+            log_message('error', 'Hotspot binding failed cliente={cliente} router={router}: {error}', [
+                'cliente' => $clienteId,
+                'router' => $routerCode,
+                'error' => $exception->getMessage(),
+            ]);
             throw new RuntimeException($exception->getMessage(), 0, $exception);
         }
+
+        log_message('debug', 'Hotspot binding created cliente={cliente} router={router} comment={comment}', [
+            'cliente' => $clienteId,
+            'router' => $routerCode,
+            'comment' => $bindingComment,
+        ]);
 
         $schedulerResponse = null;
         $warning = null;
@@ -55,6 +74,20 @@ class HotspotAuthorizationService
             );
         } catch (\Throwable $exception) {
             $warning = 'No se pudo crear el scheduler de limpieza: ' . $exception->getMessage();
+            log_message('warning', 'Hotspot scheduler failed cliente={cliente} router={router} scheduler={scheduler}: {error}', [
+                'cliente' => $clienteId,
+                'router' => $routerCode,
+                'scheduler' => $schedulerName,
+                'error' => $exception->getMessage(),
+            ]);
+        }
+
+        if ($schedulerResponse !== null) {
+            log_message('debug', 'Hotspot scheduler created cliente={cliente} router={router} scheduler={scheduler}', [
+                'cliente' => $clienteId,
+                'router' => $routerCode,
+                'scheduler' => $schedulerName,
+            ]);
         }
 
         return [

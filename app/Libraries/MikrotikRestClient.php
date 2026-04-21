@@ -36,6 +36,13 @@ class MikrotikRestClient
         }
 
         $url = sprintf('https://%s:%d/rest/%s', $host, $port, ltrim($path, '/'));
+        $safePayload = $this->sanitizePayloadForLog($payload);
+
+        log_message('debug', 'MikroTik REST request {method} {url} payload={payload}', [
+            'method' => $method,
+            'url' => $url,
+            'payload' => json_encode($safePayload, JSON_UNESCAPED_SLASHES),
+        ]);
 
         $handle = curl_init($url);
 
@@ -68,17 +75,48 @@ class MikrotikRestClient
         curl_close($handle);
 
         if ($rawResponse === false || $curlError !== '') {
+            log_message('error', 'MikroTik REST network error {method} {url}: {error}', [
+                'method' => $method,
+                'url' => $url,
+                'error' => $curlError,
+            ]);
             throw new RuntimeException('Fallo de red al conectar con MikroTik: ' . $curlError);
         }
 
         $decoded = json_decode($rawResponse, true);
         $decoded = is_array($decoded) ? $decoded : [];
 
+        log_message('debug', 'MikroTik REST response {method} {url} status={status} body={body}', [
+            'method' => $method,
+            'url' => $url,
+            'status' => $httpCode,
+            'body' => $rawResponse,
+        ]);
+
         if ($httpCode >= 400) {
             $detail = $decoded['detail'] ?? $decoded['message'] ?? ('HTTP ' . $httpCode);
+            log_message('error', 'MikroTik REST error {method} {url} status={status} detail={detail}', [
+                'method' => $method,
+                'url' => $url,
+                'status' => $httpCode,
+                'detail' => $detail,
+            ]);
             throw new RuntimeException('RouterOS REST devolvio un error: ' . $detail);
         }
 
         return $decoded;
+    }
+
+    private function sanitizePayloadForLog(array $payload): array
+    {
+        $safe = $payload;
+
+        foreach (['password'] as $secretKey) {
+            if (array_key_exists($secretKey, $safe)) {
+                $safe[$secretKey] = '***';
+            }
+        }
+
+        return $safe;
     }
 }
