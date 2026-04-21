@@ -132,10 +132,6 @@ class Home extends BaseController
                 'expires_at' => $authorization['expires_at'],
                 'branch_name' => $context['branch_name'],
                 'router_name' => $context['router_name'],
-                'login_url' => $authorization['login_url'],
-                'login_username' => $authorization['login_username'],
-                'login_password' => $authorization['login_password'],
-                'link_orig' => $authorization['link_orig'],
             ]);
     }
 
@@ -223,10 +219,6 @@ class Home extends BaseController
                 'expires_at' => $authorization['expires_at'],
                 'branch_name' => $context['branch_name'],
                 'router_name' => $context['router_name'],
-                'login_url' => $authorization['login_url'],
-                'login_username' => $authorization['login_username'],
-                'login_password' => $authorization['login_password'],
-                'link_orig' => $authorization['link_orig'],
             ]);
     }
 
@@ -418,10 +410,6 @@ class Home extends BaseController
                 'success' => false,
                 'message' => 'No pudimos cargar la configuracion del MikroTik de esta sucursal.',
                 'expires_at' => $sessionData['expires_at'],
-                'login_url' => null,
-                'login_username' => null,
-                'login_password' => null,
-                'link_orig' => $context['link_orig'] ?? null,
             ];
         }
 
@@ -440,10 +428,6 @@ class Home extends BaseController
                 'success' => true,
                 'message' => 'Acceso autorizado correctamente.',
                 'expires_at' => $sessionData['expires_at'],
-                'login_url' => $mikrotikAccess['login_url'],
-                'login_username' => $mikrotikAccess['username'],
-                'login_password' => $mikrotikAccess['password'],
-                'link_orig' => $mikrotikAccess['dst'],
             ];
         } catch (\Throwable $exception) {
             $sessionData = $this->createSessionRecord(
@@ -457,10 +441,6 @@ class Home extends BaseController
                 'success' => false,
                 'message' => 'No pudimos activar el acceso en MikroTik. Revisa conectividad, credenciales REST y configuracion del hotspot.',
                 'expires_at' => $sessionData['expires_at'],
-                'login_url' => null,
-                'login_username' => null,
-                'login_password' => null,
-                'link_orig' => $context['link_orig'] ?? null,
             ];
         }
     }

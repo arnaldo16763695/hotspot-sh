@@ -8,7 +8,7 @@ class Mikrotik extends BaseConfig
 {
     public bool $verifyTls = false;
     public int $timeoutSeconds = 15;
-    public string $hotspotUserPrefix = 'hs';
-    public string $hotspotUserProfile = 'default';
     public string $limitUptime = '1h';
+    public string $bindingCommentPrefix = 'portal-bind';
+    public string $schedulerPrefix = 'portal-unbind';
 }

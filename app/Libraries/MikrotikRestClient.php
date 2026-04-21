@@ -18,6 +18,11 @@ class MikrotikRestClient
         return $this->request('PUT', $path, $payload);
     }
 
+    public function post(string $path, array $payload): array
+    {
+        return $this->request('POST', $path, $payload);
+    }
+
     private function request(string $method, string $path, array $payload = []): array
     {
         $config = $this->config ?? config('Mikrotik');
@@ -38,7 +43,7 @@ class MikrotikRestClient
             throw new RuntimeException('No fue posible iniciar la conexion cURL con MikroTik.');
         }
 
-        curl_setopt_array($handle, [
+        $curlOptions = [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => $method,
             CURLOPT_USERPWD => $username . ':' . $password,
@@ -49,7 +54,13 @@ class MikrotikRestClient
             CURLOPT_TIMEOUT => $config->timeoutSeconds,
             CURLOPT_SSL_VERIFYPEER => $config->verifyTls,
             CURLOPT_SSL_VERIFYHOST => $config->verifyTls ? 2 : 0,
-        ]);
+        ];
+
+        if ($payload !== []) {
+            $curlOptions[CURLOPT_POSTFIELDS] = json_encode($payload, JSON_UNESCAPED_SLASHES);
+        }
+
+        curl_setopt_array($handle, $curlOptions);
 
         $rawResponse = curl_exec($handle);
         $httpCode = (int) curl_getinfo($handle, CURLINFO_HTTP_CODE);
