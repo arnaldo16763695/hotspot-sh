@@ -398,6 +398,14 @@ class Home extends BaseController
 
     private function authorizeHotspotAccess(int $clienteId, string $celular, array $context, string $baseObservation): array
     {
+        log_message('debug', 'Authorize hotspot access request cliente={cliente} router={router} mac={mac} ip={ip} hotspot={hotspot}', [
+            'cliente' => $clienteId,
+            'router' => $context['router_code'] ?? '',
+            'mac' => $context['mac_address'] ?? '',
+            'ip' => $context['ip_address'] ?? '',
+            'hotspot' => $context['hotspot_nombre'] ?? '',
+        ]);
+
         $routerModel = new MikrotikRouterModel();
         $router = $routerModel->find((int) $context['router_id']);
 
@@ -442,6 +450,12 @@ class Home extends BaseController
                 'expires_at' => $sessionData['expires_at'],
             ];
         } catch (\Throwable $exception) {
+            log_message('error', 'Authorize hotspot access failed cliente={cliente} router={router}: {error}', [
+                'cliente' => $clienteId,
+                'router' => $context['router_code'] ?? '',
+                'error' => $exception->getMessage(),
+            ]);
+
             $sessionData = $this->createSessionRecord(
                 $clienteId,
                 $context,
