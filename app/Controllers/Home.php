@@ -15,6 +15,11 @@ class Home extends BaseController
     private const DURACION_ACCESO_MINUTOS = 60;
     private const VENTANA_REINGRESO_HORAS = 3;
 
+    public function adminLogin(): string
+    {
+        return view('admin/login');
+    }
+
     public function index(): string
     {
         $oldInput = session()->getFlashdata('old');
@@ -121,7 +126,7 @@ class Home extends BaseController
 
         $eventoModel->registrar((int) $cliente['id'], 'AUTORIZACION_EXITOSA', 'Cliente existente autorizado.', $context);
 
-        return redirect()->to('/success')
+        return redirect()->to('/hotspot/success')
             ->with('successData', [
                 'nombre' => $cliente['nombre'],
                 'expires_at' => $authorization['expires_at'],
@@ -212,7 +217,7 @@ class Home extends BaseController
 
         $eventoModel->registrar($clienteId, 'AUTORIZACION_EXITOSA', 'Cliente autorizado despues del registro.', $context);
 
-        return redirect()->to('/success')
+        return redirect()->to('/hotspot/success')
             ->with('successData', [
                 'nombre' => $data['nombre'],
                 'expires_at' => $authorization['expires_at'],
@@ -230,7 +235,7 @@ class Home extends BaseController
         $successData = session()->getFlashdata('successData');
 
         if ($successData === null) {
-            return redirect()->to('/');
+            return redirect()->to('/hotspot');
         }
 
         return view('portal/success', $successData);
@@ -391,7 +396,7 @@ class Home extends BaseController
             'link_orig' => $context['link_orig'] ?? null,
         ], static fn ($value) => $value !== null && $value !== '');
 
-        $url = site_url('/');
+        $url = site_url('hotspot');
 
         return $query === [] ? $url : $url . '?' . http_build_query($query);
     }
