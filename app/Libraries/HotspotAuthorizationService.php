@@ -31,10 +31,6 @@ class HotspotAuthorizationService
             'comment' => $bindingComment,
         ];
 
-        if (! empty($context['hotspot_nombre'])) {
-            $bindingPayload['server'] = $context['hotspot_nombre'];
-        }
-
         if (! empty($context['mac_address'])) {
             $bindingPayload['mac-address'] = $context['mac_address'];
         }
@@ -45,9 +41,20 @@ class HotspotAuthorizationService
 
         try {
             $bindingResponse = $client->put('ip/hotspot/ip-binding', $bindingPayload);
-            $schedulerResponse = $client->put('system/scheduler', $this->buildSchedulerPayload($schedulerName, $bindingComment, $config->limitUptime));
         } catch (\Throwable $exception) {
             throw new RuntimeException($exception->getMessage(), 0, $exception);
+        }
+
+        $schedulerResponse = null;
+        $warning = null;
+
+        try {
+            $schedulerResponse = $client->put(
+                'system/scheduler',
+                $this->buildSchedulerPayload($schedulerName, $bindingComment, $config->limitUptime)
+            );
+        } catch (\Throwable $exception) {
+            $warning = 'No se pudo crear el scheduler de limpieza: ' . $exception->getMessage();
         }
 
         return [
@@ -57,6 +64,7 @@ class HotspotAuthorizationService
                 'binding' => $bindingResponse,
                 'scheduler' => $schedulerResponse,
             ],
+            'warning' => $warning,
         ];
     }
 

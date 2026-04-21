@@ -420,9 +420,17 @@ class Home extends BaseController
             $sessionData = $this->createSessionRecord(
                 $clienteId,
                 $context,
-                $baseObservation . ' Usuario hotspot generado: ' . $mikrotikAccess['username'] . '.',
+                $baseObservation
+                . ' Binding hotspot creado: ' . $mikrotikAccess['binding_comment'] . '.'
+                . (! empty($mikrotikAccess['warning']) ? ' ' . $mikrotikAccess['warning'] : ''),
                 true
             );
+
+            if (! empty($mikrotikAccess['warning'])) {
+                log_message('warning', 'MikroTik scheduler warning: {warning}', [
+                    'warning' => $mikrotikAccess['warning'],
+                ]);
+            }
 
             return [
                 'success' => true,
