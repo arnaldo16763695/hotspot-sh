@@ -23,7 +23,22 @@ class MikrotikRestClient
         return $this->request('POST', $path, $payload);
     }
 
-    private function request(string $method, string $path, array $payload = []): array
+    public function patch(string $path, array $payload): array
+    {
+        return $this->request('PATCH', $path, $payload);
+    }
+
+    public function get(string $path, array $query = []): array
+    {
+        return $this->request('GET', $path, [], $query);
+    }
+
+    public function delete(string $path): array
+    {
+        return $this->request('DELETE', $path);
+    }
+
+    private function request(string $method, string $path, array $payload = [], array $query = []): array
     {
         $config = $this->config ?? config('Mikrotik');
         $host = rtrim((string) ($this->router['host'] ?? ''), '/');
@@ -36,6 +51,9 @@ class MikrotikRestClient
         }
 
         $url = sprintf('https://%s:%d/rest/%s', $host, $port, ltrim($path, '/'));
+        if ($query !== []) {
+            $url .= '?' . http_build_query($query);
+        }
         $safePayload = $this->sanitizePayloadForLog($payload);
 
         log_message('debug', 'MikroTik REST request {method} {url} payload={payload}', [
@@ -56,7 +74,6 @@ class MikrotikRestClient
             CURLOPT_USERPWD => $username . ':' . $password,
             CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
             CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-            CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_SLASHES),
             CURLOPT_CONNECTTIMEOUT => $config->timeoutSeconds,
             CURLOPT_TIMEOUT => $config->timeoutSeconds,
             CURLOPT_SSL_VERIFYPEER => $config->verifyTls,

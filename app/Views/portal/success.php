@@ -64,7 +64,7 @@
         <div class="highlight">
             Tu acceso estara vigente hasta: <?= esc(date('d/m/Y h:i A', strtotime((string) $expires_at))) ?>
         </div>
-        <a href="<?= site_url('/') ?>">Volver al portal</a>
+        <a href="<?= site_url('hotspot') ?>">Volver al portal</a>
     </main>
 </body>
 </html>

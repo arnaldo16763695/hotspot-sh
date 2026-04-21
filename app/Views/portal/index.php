@@ -281,7 +281,7 @@
 
                         <div class="actions">
                             <button type="submit">Activar acceso gratuito</button>
-                            <a class="ghost-link" href="<?= site_url('/') ?>">Volver</a>
+                            <a class="ghost-link" href="<?= site_url('hotspot') ?>">Volver</a>
                         </div>
                     </form>
                 <?php else: ?>

@@ -17,9 +17,9 @@ class HotspotAuthorizationService
         $client = new MikrotikRestClient($router, $config);
 
         $routerCode = (string) ($router['codigo'] ?? $context['router_code'] ?? 'router');
-        $uniqueToken = strtolower(sprintf('%d-%s', $clienteId, date('YmdHis')));
-        $bindingComment = sprintf('%s-%s-%s', $config->bindingCommentPrefix, $routerCode, $uniqueToken);
-        $schedulerName = sprintf('%s-%s-%s', $config->schedulerPrefix, $routerCode, $uniqueToken);
+        $hotspotUser = $celular;
+        $hotspotPassword = $celular;
+        $schedulerName = sprintf('%s-%s-%s', $config->schedulerPrefix, $routerCode, $hotspotUser);
 
         if (empty($context['mac_address']) && empty($context['ip_address'])) {
             throw new RuntimeException('No recibimos MAC ni IP del cliente para autorizarlo en el hotspot.');
@@ -33,24 +33,39 @@ class HotspotAuthorizationService
             'hotspot' => $context['hotspot_nombre'] ?? '',
         ]);
 
-        $bindingPayload = [
-            'type' => 'bypassed',
+        $userPayload = [
+            'name' => $hotspotUser,
+            'password' => $hotspotPassword,
+            'profile' => $config->hotspotUserProfile,
             'disabled' => 'false',
-            'comment' => $bindingComment,
+            'limit-uptime' => $config->limitUptime,
+            'comment' => sprintf('Portal hotspot cliente %d celular %s router %s', $clienteId, $celular, $routerCode),
         ];
 
-        if (! empty($context['mac_address'])) {
-            $bindingPayload['mac-address'] = $context['mac_address'];
-        }
-
-        if (! empty($context['ip_address'])) {
-            $bindingPayload['address'] = $context['ip_address'];
+        if (! empty($context['hotspot_nombre'])) {
+            $userPayload['server'] = $context['hotspot_nombre'];
         }
 
         try {
-            $bindingResponse = $client->put('ip/hotspot/ip-binding', $bindingPayload);
+            $existingUsers = $client->get('ip/hotspot/user', ['name' => $hotspotUser]);
+            $existingUsers = isset($existingUsers[0]) ? $existingUsers : [];
         } catch (\Throwable $exception) {
-            log_message('error', 'Hotspot binding failed cliente={cliente} router={router}: {error}', [
+            throw new RuntimeException('No pudimos consultar el usuario hotspot existente: ' . $exception->getMessage(), 0, $exception);
+        }
+
+        try {
+            if ($existingUsers !== []) {
+                $userId = $existingUsers[0]['.id'] ?? null;
+                if ($userId === null) {
+                    throw new RuntimeException('El usuario hotspot existente no devolvio .id.');
+                }
+
+                $userResponse = $client->patch('ip/hotspot/user/' . rawurlencode($userId), $userPayload);
+            } else {
+                $userResponse = $client->put('ip/hotspot/user', $userPayload);
+            }
+        } catch (\Throwable $exception) {
+            log_message('error', 'Hotspot user upsert failed cliente={cliente} router={router}: {error}', [
                 'cliente' => $clienteId,
                 'router' => $routerCode,
                 'error' => $exception->getMessage(),
@@ -58,19 +73,55 @@ class HotspotAuthorizationService
             throw new RuntimeException($exception->getMessage(), 0, $exception);
         }
 
-        log_message('debug', 'Hotspot binding created cliente={cliente} router={router} comment={comment}', [
+        log_message('debug', 'Hotspot user ready cliente={cliente} router={router} user={user}', [
             'cliente' => $clienteId,
             'router' => $routerCode,
-            'comment' => $bindingComment,
+            'user' => $hotspotUser,
         ]);
+
+        try {
+            $existingActiveSessions = $client->get('ip/hotspot/active', [
+                '.query' => sprintf('user=%s', $hotspotUser),
+            ]);
+
+            foreach ($existingActiveSessions as $activeSession) {
+                if (! empty($activeSession['.id'])) {
+                    $client->delete('ip/hotspot/active/' . rawurlencode((string) $activeSession['.id']));
+                }
+            }
+
+            $loginPayload = [
+                'user' => $hotspotUser,
+                'password' => $hotspotPassword,
+                'ip' => $context['ip_address'],
+            ];
+
+            if (! empty($context['mac_address'])) {
+                $loginPayload['mac-address'] = $context['mac_address'];
+            }
+
+            $activeLoginResponse = $client->post('ip/hotspot/active/login', $loginPayload);
+        } catch (\Throwable $exception) {
+            log_message('error', 'Hotspot active login failed cliente={cliente} router={router}: {error}', [
+                'cliente' => $clienteId,
+                'router' => $routerCode,
+                'error' => $exception->getMessage(),
+            ]);
+            throw new RuntimeException('No pudimos loguear al cliente en el hotspot: ' . $exception->getMessage(), 0, $exception);
+        }
 
         $schedulerResponse = null;
         $warning = null;
 
         try {
+            $existingSchedulers = $client->get('system/scheduler', ['name' => $schedulerName]);
+            if (isset($existingSchedulers[0]['.id'])) {
+                $client->delete('system/scheduler/' . rawurlencode($existingSchedulers[0]['.id']));
+            }
+
             $schedulerResponse = $client->put(
                 'system/scheduler',
-                $this->buildSchedulerPayload($schedulerName, $bindingComment, $config->limitUptime)
+                $this->buildSchedulerPayload($schedulerName, $hotspotUser, $config->limitUptime)
             );
         } catch (\Throwable $exception) {
             $warning = 'No se pudo crear el scheduler de limpieza: ' . $exception->getMessage();
@@ -91,24 +142,26 @@ class HotspotAuthorizationService
         }
 
         return [
-            'binding_comment' => $bindingComment,
+            'hotspot_user' => $hotspotUser,
             'scheduler_name' => $schedulerName,
             'router_response' => [
-                'binding' => $bindingResponse,
+                'user' => $userResponse,
+                'active_login' => $activeLoginResponse,
                 'scheduler' => $schedulerResponse,
             ],
             'warning' => $warning,
         ];
     }
 
-    private function buildSchedulerPayload(string $schedulerName, string $bindingComment, string $limitUptime): array
+    private function buildSchedulerPayload(string $schedulerName, string $hotspotUser, string $limitUptime): array
     {
         $expiresAt = time() + $this->uptimeToSeconds($limitUptime);
         $startDate = strtolower(date('M/d/Y', $expiresAt));
         $startTime = date('H:i:s', $expiresAt);
         $script = sprintf(
-            '/ip/hotspot/ip-binding/remove [find where comment="%s"]; /system/scheduler/remove [find where name="%s"]',
-            $bindingComment,
+            '/ip/hotspot/active/remove [find where user="%s"]; /ip/hotspot/user/remove [find where name="%s"]; /system/scheduler/remove [find where name="%s"]',
+            $hotspotUser,
+            $hotspotUser,
             $schedulerName
         );
 

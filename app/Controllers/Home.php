@@ -421,7 +421,8 @@ class Home extends BaseController
                 $clienteId,
                 $context,
                 $baseObservation
-                . ' Binding hotspot creado: ' . $mikrotikAccess['binding_comment'] . '.'
+                . ' Usuario hotspot listo: ' . $mikrotikAccess['hotspot_user'] . '.'
+                . ' Login activo solicitado en el hotspot por ' . self::DURACION_ACCESO_MINUTOS . ' minutos.'
                 . (! empty($mikrotikAccess['warning']) ? ' ' . $mikrotikAccess['warning'] : ''),
                 true
             );
