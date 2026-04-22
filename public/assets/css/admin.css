@@ -1,0 +1,93 @@
+:root {
+    --admin-bg: #f5f4ef;
+    --admin-card: rgba(255, 255, 255, 0.94);
+    --admin-ink: #1f2937;
+    --admin-muted: #6b7280;
+    --admin-accent: #0f766e;
+    --admin-accent-soft: #dff6f1;
+    --admin-line: #d9e5e2;
+}
+
+body.admin-body {
+    min-height: 100vh;
+    color: var(--admin-ink);
+    background:
+        radial-gradient(circle at top right, rgba(15, 118, 110, 0.14), transparent 30%),
+        linear-gradient(180deg, #f8faf9, var(--admin-bg));
+}
+
+.admin-shell {
+    max-width: 1120px;
+}
+
+.admin-card {
+    background: var(--admin-card);
+    border: 1px solid var(--admin-line);
+    border-radius: 1.75rem;
+    box-shadow: 0 1.5rem 3.75rem rgba(15, 23, 42, 0.08);
+}
+
+.admin-badge {
+    display: inline-block;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background: var(--admin-accent-soft);
+    color: var(--admin-accent);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.admin-title {
+    font-size: clamp(2.2rem, 4vw, 3.7rem);
+    line-height: 0.98;
+}
+
+.admin-copy {
+    color: var(--admin-muted);
+}
+
+.admin-item {
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--admin-line);
+}
+
+.admin-item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.admin-placeholder {
+    border-radius: 1rem;
+    background: #f8fafc;
+    color: var(--admin-muted);
+}
+
+.admin-primary-btn,
+.admin-secondary-btn {
+    border-radius: 999px;
+    padding-inline: 1.2rem;
+}
+
+.admin-primary-btn {
+    background: var(--admin-accent);
+    border-color: var(--admin-accent);
+}
+
+.admin-primary-btn:hover,
+.admin-primary-btn:focus {
+    background: #0a5c56;
+    border-color: #0a5c56;
+}
+
+.admin-secondary-btn {
+    color: var(--admin-accent);
+    border-color: #bfded9;
+    background: #eef7f5;
+}
+
+.admin-secondary-btn:hover,
+.admin-secondary-btn:focus {
+    color: var(--admin-accent);
+    background: #e1f2ee;
+    border-color: #9ecfc6;
+}

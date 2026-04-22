@@ -1,0 +1,151 @@
+:root {
+    color-scheme: light;
+    --hotspot-bg-top: #fff7ed;
+    --hotspot-bg-bottom: #f4f1ea;
+    --hotspot-ink: #2b2118;
+    --hotspot-muted: #726252;
+    --hotspot-accent: #bf5b2c;
+    --hotspot-accent-dark: #8f3f1a;
+    --hotspot-line: #ead9c8;
+    --hotspot-card: rgba(255, 254, 251, 0.94);
+}
+
+body.hotspot-body {
+    min-height: 100vh;
+    color: var(--hotspot-ink);
+    background:
+        radial-gradient(circle at top left, rgba(191, 91, 44, 0.18), transparent 35%),
+        linear-gradient(180deg, var(--hotspot-bg-top), var(--hotspot-bg-bottom));
+}
+
+.hotspot-shell {
+    max-width: 1120px;
+}
+
+.hotspot-card,
+.hotspot-side-card,
+.hotspot-success-card {
+    background: var(--hotspot-card);
+    border: 1px solid var(--hotspot-line);
+    border-radius: 1.5rem;
+    box-shadow: 0 1.5rem 3.5rem rgba(73, 48, 28, 0.12);
+}
+
+.hotspot-card,
+.hotspot-side-card {
+    padding: 1.75rem;
+}
+
+.hotspot-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    background: #fff1e8;
+    color: var(--hotspot-accent-dark);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.hotspot-title {
+    font-size: clamp(2.1rem, 4vw, 3.5rem);
+    line-height: 0.98;
+}
+
+.hotspot-copy,
+.hotspot-side-card p,
+.hotspot-success-card p {
+    color: var(--hotspot-muted);
+}
+
+.hotspot-input,
+.hotspot-input:focus {
+    border-color: #d9c3b0;
+    border-radius: 0.95rem;
+}
+
+.hotspot-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(191, 91, 44, 0.12);
+}
+
+.hotspot-check {
+    border: 1px solid var(--hotspot-line);
+    border-radius: 1rem;
+    background: #fffbf7;
+}
+
+.hotspot-check.is-invalid {
+    border-color: #e8a6a0;
+    background: #fff3f2;
+}
+
+.hotspot-btn {
+    border-radius: 999px;
+    padding-inline: 1.3rem;
+    background: var(--hotspot-accent);
+    border-color: var(--hotspot-accent);
+    box-shadow: 0 0.9rem 1.9rem rgba(191, 91, 44, 0.22);
+}
+
+.hotspot-btn:hover,
+.hotspot-btn:focus {
+    background: var(--hotspot-accent-dark);
+    border-color: var(--hotspot-accent-dark);
+}
+
+.hotspot-outline-btn {
+    border-radius: 999px;
+    padding-inline: 1.3rem;
+    color: var(--hotspot-accent-dark);
+    border-color: #efc7ae;
+    background: #fff2e9;
+}
+
+.hotspot-outline-btn:hover,
+.hotspot-outline-btn:focus {
+    color: var(--hotspot-accent-dark);
+    border-color: #e2b08d;
+    background: #ffe7d7;
+}
+
+.hotspot-status {
+    border-radius: 1rem;
+    border-color: var(--hotspot-line);
+    background: #fffaf4;
+    color: var(--hotspot-accent-dark);
+}
+
+.hotspot-wait {
+    border-radius: 1rem;
+    border: 1px solid #f0d4a5;
+    background: #fff6e6;
+    color: #9a5d00;
+}
+
+.hotspot-side-item {
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--hotspot-line);
+}
+
+.hotspot-side-item:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.hotspot-success-body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #ecfff3, #f5f0e8);
+}
+
+.hotspot-success-card {
+    width: min(100%, 36rem);
+    padding: 2rem;
+}
+
+.hotspot-success-highlight {
+    border-radius: 1rem;
+    background: #effaf2;
+    color: #226643;
+}
