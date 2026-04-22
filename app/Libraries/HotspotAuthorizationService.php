@@ -75,7 +75,7 @@ class HotspotAuthorizationService
                     throw new RuntimeException('El usuario hotspot existente no devolvio .id.');
                 }
 
-                $userResponse = $client->patch('ip/hotspot/user/' . rawurlencode($userId), $userPayload);
+                $userResponse = $client->patch('ip/hotspot/user/' . $this->routerOsId($userId), $userPayload);
             } else {
                 $userResponse = $client->put('ip/hotspot/user', $userPayload);
             }
@@ -101,7 +101,7 @@ class HotspotAuthorizationService
 
             foreach ($existingActiveSessions as $activeSession) {
                 if (! empty($activeSession['.id'])) {
-                    $client->delete('ip/hotspot/active/' . rawurlencode((string) $activeSession['.id']));
+                    $client->delete('ip/hotspot/active/' . $this->routerOsId((string) $activeSession['.id']));
                 }
             }
 
@@ -131,7 +131,7 @@ class HotspotAuthorizationService
         try {
             $existingSchedulers = $client->get('system/scheduler', ['name' => $schedulerName]);
             if (isset($existingSchedulers[0]['.id'])) {
-                $client->delete('system/scheduler/' . rawurlencode($existingSchedulers[0]['.id']));
+                $client->delete('system/scheduler/' . $this->routerOsId($existingSchedulers[0]['.id']));
             }
 
             $schedulerResponse = $client->put(
@@ -204,5 +204,10 @@ class HotspotAuthorizationService
         }
 
         throw new RuntimeException('Formato de limitUptime no soportado: ' . $value);
+    }
+
+    private function routerOsId(string $id): string
+    {
+        return trim($id);
     }
 }
