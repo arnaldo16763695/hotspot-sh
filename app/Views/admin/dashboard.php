@@ -9,16 +9,14 @@
 </head>
 <body class="admin-body py-4">
     <main class="container admin-shell">
+        <?= view('admin/partials/navbar', ['auth' => $auth, 'currentPage' => $currentPage ?? 'dashboard']) ?>
+
         <div class="admin-card p-4 p-lg-5">
             <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 align-items-lg-center">
                 <div>
                     <span class="admin-badge">Dashboard Admin</span>
                     <h1 class="admin-title mt-4 mb-2 fw-bold">Bienvenido, <?= esc($auth['nombre'] ?? 'Administrador') ?>.</h1>
                     <p class="admin-copy mb-0">Tu sesion ya esta protegida y lista para crecer con modulos de clientes, sesiones, campanas y configuracion operativa.</p>
-                </div>
-                <div class="d-flex flex-wrap gap-2">
-                    <a class="btn admin-secondary-btn" href="<?= site_url('hotspot') ?>">Ver portal hotspot</a>
-                    <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/logout') ?>">Cerrar sesion</a>
                 </div>
             </div>
 
@@ -36,7 +34,7 @@
                 <div class="col-12 col-lg-4">
                     <div class="admin-placeholder h-100 p-4">
                         <h2 class="h5 mb-2">Proximo modulo</h2>
-                        <p class="mb-0">Clientes, sesiones hotspot y trazabilidad por sucursal.</p>
+                        <p class="mb-0">Administracion de sucursales, routers y monitoreo operativo del hotspot.</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -48,5 +46,6 @@
             </div>
         </div>
     </main>
+    <script src="<?= base_url('assets/bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
 </html>

@@ -27,6 +27,44 @@ body.admin-body {
     box-shadow: 0 1.5rem 3.75rem rgba(15, 23, 42, 0.08);
 }
 
+.admin-navbar {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--admin-line);
+    border-radius: 1.25rem;
+    box-shadow: 0 1rem 2.5rem rgba(15, 23, 42, 0.06);
+    backdrop-filter: blur(10px);
+    padding: 0.85rem 1.15rem;
+}
+
+.admin-navbar-brand {
+    color: var(--admin-accent);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+}
+
+.admin-navbar-brand:hover,
+.admin-navbar-brand:focus {
+    color: #0a5c56;
+}
+
+.admin-nav-link {
+    color: var(--admin-muted);
+    font-weight: 600;
+    border-radius: 999px;
+    padding-inline: 0.95rem !important;
+}
+
+.admin-nav-link:hover,
+.admin-nav-link:focus {
+    color: var(--admin-accent);
+    background: #eef7f5;
+}
+
+.admin-nav-link.active {
+    color: var(--admin-accent) !important;
+    background: var(--admin-accent-soft);
+}
+
 .admin-badge {
     display: inline-block;
     padding: 0.5rem 0.9rem;
@@ -90,4 +128,24 @@ body.admin-body {
     color: var(--admin-accent);
     background: #e1f2ee;
     border-color: #9ecfc6;
+}
+
+.admin-dropdown-menu {
+    border: 1px solid var(--admin-line);
+    border-radius: 1rem;
+    box-shadow: 0 1rem 2.5rem rgba(15, 23, 42, 0.08);
+    padding: 0.5rem;
+}
+
+.admin-dropdown-menu .dropdown-item {
+    border-radius: 0.75rem;
+    font-weight: 600;
+    color: var(--admin-muted);
+    padding-block: 0.65rem;
+}
+
+.admin-dropdown-menu .dropdown-item:hover,
+.admin-dropdown-menu .dropdown-item:focus {
+    color: var(--admin-accent);
+    background: #eef7f5;
 }
