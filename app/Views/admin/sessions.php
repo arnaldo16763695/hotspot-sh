@@ -49,7 +49,7 @@
                     </select>
                 </div>
                 <div class="col-12 col-lg-1 d-flex align-items-end">
-                    <button type="submit" class="btn admin-primary-btn text-white w-100">Filtrar</button>
+                    <button type="submit" class="btn d-flex justify-content-center admin-primary-btn text-white w-100">Filtrar</button>
                 </div>
             </form>
 
