@@ -15,8 +15,8 @@
             <div class="d-flex flex-column flex-lg-row justify-content-between gap-3 align-items-lg-center">
                 <div>
                     <span class="admin-badge">Administracion</span>
-                    <h1 class="admin-title mt-4 mb-2 fw-bold">Centro de configuracion.</h1>
-                    <p class="admin-copy mb-0">Aqui vamos a concentrar la administracion de sucursales, routers, usuarios administrativos y configuraciones operativas del sistema.</p>
+                    <h1 class="admin-title mt-4 mb-2 fw-bold">Configuracion interna del panel.</h1>
+                    <p class="admin-copy mb-0">Usa este espacio para concentrar la gestion administrativa del sistema. Sucursales y routers ahora viven en sus modulos propios.</p>
                 </div>
             </div>
 
@@ -37,16 +37,18 @@
                         <p class="mb-0">Espacio reservado para extender permisos por rol y futuras restricciones por modulo.</p>
                     </div>
                 </div>
-                <div class="col-12 col-lg-6" id="sucursales">
+                <div class="col-12 col-lg-6">
                     <div class="admin-placeholder h-100 p-4">
                         <h2 class="h5 mb-2">Sucursales</h2>
-                        <p class="mb-0">Siguiente modulo recomendado para centralizar puntos de acceso y datos operativos.</p>
+                        <p class="mb-0">La administracion de sucursales ahora vive en una pagina propia para mantener un flujo mas claro.</p>
+                        <a class="btn admin-secondary-btn mt-3" href="<?= site_url('admin/branches') ?>">Ir a sucursales</a>
                     </div>
                 </div>
-                <div class="col-12 col-lg-6" id="routers">
+                <div class="col-12 col-lg-6">
                     <div class="admin-placeholder h-100 p-4">
-                        <h2 class="h5 mb-2">Routers MikroTik</h2>
-                        <p class="mb-0">Aqui quedara el CRUD de routers, host por WireGuard, estado y credenciales de integracion.</p>
+                        <h2 class="h5 mb-2">Routers</h2>
+                        <p class="mb-0">La administracion de routers tambien queda separada en su propia pagina del panel.</p>
+                        <a class="btn admin-secondary-btn mt-3" href="<?= site_url('admin/routers') ?>">Ir a routers</a>
                     </div>
                 </div>
             </div>

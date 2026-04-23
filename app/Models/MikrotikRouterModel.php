@@ -36,4 +36,27 @@ class MikrotikRouterModel extends Model
             ->orderBy('id', 'ASC')
             ->first();
     }
+
+    public function listForAdmin(?string $search = null): array
+    {
+        $builder = $this->builder();
+        $builder->select('mikrotik_routers.*, sucursales.nombre as sucursal_nombre, sucursales.codigo as sucursal_codigo');
+        $builder->join('sucursales', 'sucursales.id = mikrotik_routers.sucursal_id', 'left');
+
+        if ($search !== null && trim($search) !== '') {
+            $search = trim($search);
+            $builder->groupStart()
+                ->like('mikrotik_routers.codigo', strtoupper($search))
+                ->orLike('mikrotik_routers.nombre_router', $search)
+                ->orLike('mikrotik_routers.host', $search)
+                ->orLike('sucursales.nombre', $search)
+                ->groupEnd();
+        }
+
+        return $builder
+            ->orderBy('sucursales.nombre', 'ASC')
+            ->orderBy('mikrotik_routers.nombre_router', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
 }

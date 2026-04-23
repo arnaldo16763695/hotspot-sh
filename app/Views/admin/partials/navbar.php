@@ -27,8 +27,8 @@ $currentPage = $currentPage ?? '';
                     <ul class="dropdown-menu admin-dropdown-menu">
                         <li><a class="dropdown-item" href="<?= site_url('admin/management#usuarios') ?>">Usuarios</a></li>
                         <li><a class="dropdown-item" href="<?= site_url('admin/management#roles') ?>">Roles</a></li>
-                        <li><a class="dropdown-item" href="<?= site_url('admin/management#sucursales') ?>">Sucursales</a></li>
-                        <li><a class="dropdown-item" href="<?= site_url('admin/management#routers') ?>">Routers</a></li>
+                        <li><a class="dropdown-item" href="<?= site_url('admin/branches') ?>">Sucursales</a></li>
+                        <li><a class="dropdown-item" href="<?= site_url('admin/routers') ?>">Routers</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

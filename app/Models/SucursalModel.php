@@ -25,4 +25,23 @@ class SucursalModel extends Model
             ->where('estado', 'activa')
             ->first();
     }
+
+    public function listForAdmin(?string $search = null): array
+    {
+        $builder = $this->builder();
+
+        if ($search !== null && trim($search) !== '') {
+            $search = trim($search);
+            $builder->groupStart()
+                ->like('nombre', $search)
+                ->orLike('codigo', strtoupper($search))
+                ->orLike('ciudad', $search)
+                ->groupEnd();
+        }
+
+        return $builder
+            ->orderBy('nombre', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
 }
