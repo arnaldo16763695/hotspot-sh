@@ -18,7 +18,7 @@
                 <div>
                     <span class="admin-badge">Routers</span>
                     <h1 class="admin-title mt-4 mb-2 fw-bold"><?= ($mode ?? 'create') === 'edit' ? 'Editar router.' : 'Crear router.' ?></h1>
-                    <p class="admin-copy mb-0">Completa la configuracion del equipo MikroTik, su sucursal y sus credenciales de integracion desde una pantalla dedicada.</p>
+                    <p class="admin-copy mb-0">Completa la configuración del equipo MikroTik, su sucursal y sus credenciales de integración desde una pantalla dedicada.</p>
                 </div>
                 <a class="btn admin-secondary-btn" href="<?= site_url('admin/routers') ?>">Volver al listado</a>
             </div>
@@ -49,7 +49,7 @@
                                 </div>
 
                                 <div class="col-12 col-lg-3">
-                                    <label class="form-label fw-semibold" for="router_codigo">Codigo</label>
+                                    <label class="form-label fw-semibold" for="router_codigo">Código</label>
                                     <input id="router_codigo" name="codigo" type="text" class="form-control<?= ! empty($errors['codigo']) ? ' is-invalid' : '' ?>" value="<?= esc($routerForm['codigo'] ?? '') ?>" required>
                                     <?php if (! empty($errors['codigo'])): ?><div class="invalid-feedback d-block"><?= esc($errors['codigo']) ?></div><?php endif; ?>
                                 </div>
@@ -88,9 +88,9 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold" for="router_password">Password</label>
+                                    <label class="form-label fw-semibold" for="router_password">Contraseña</label>
                                     <input id="router_password" name="password" type="text" class="form-control<?= ! empty($errors['password']) ? ' is-invalid' : '' ?>" value="" <?= empty($routerForm['id']) ? 'required' : '' ?>>
-                                    <div class="form-text">En edicion puedes dejarlo vacio para conservar el password actual.</div>
+                                    <div class="form-text">En edición puedes dejarlo vacío para conservar la contraseña actual.</div>
                                     <?php if (! empty($errors['password'])): ?><div class="invalid-feedback d-block"><?= esc($errors['password']) ?></div><?php endif; ?>
                                 </div>
                             </div>

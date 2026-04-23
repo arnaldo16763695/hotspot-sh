@@ -22,7 +22,7 @@ $currentPage = $currentPage ?? '';
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle admin-nav-link<?= in_array($currentPage, ['management', 'users', 'roles', 'branches', 'routers'], true) ? ' active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Administracion
+                        Administración
                     </a>
                     <ul class="dropdown-menu admin-dropdown-menu">
                         <li><a class="dropdown-item" href="<?= site_url('admin/users') ?>">Usuarios</a></li>
@@ -41,7 +41,7 @@ $currentPage = $currentPage ?? '';
                     <strong><?= esc($auth['nombre'] ?? 'Administrador') ?></strong>
                     <span class="d-block"><?= esc($auth['role_name'] ?? 'Sin rol') ?></span>
                 </div>
-                <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/logout') ?>">Cerrar sesion</a>
+                <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/logout') ?>">Cerrar sesión</a>
             </div>
         </div>
     </div>

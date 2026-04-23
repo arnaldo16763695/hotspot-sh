@@ -18,7 +18,7 @@
                 <div>
                     <span class="admin-badge">Sucursales</span>
                     <h1 class="admin-title mt-4 mb-2 fw-bold"><?= ($mode ?? 'create') === 'edit' ? 'Editar sucursal.' : 'Crear sucursal.' ?></h1>
-                    <p class="admin-copy mb-0">Completa los datos de la sucursal y conserva este formulario en una pantalla dedicada para trabajar con mas espacio y menos ruido visual.</p>
+                    <p class="admin-copy mb-0">Completa los datos de la sucursal y conserva este formulario en una pantalla dedicada para trabajar con más espacio y menos ruido visual.</p>
                 </div>
                 <a class="btn admin-secondary-btn" href="<?= site_url('admin/branches') ?>">Volver al listado</a>
             </div>
@@ -36,7 +36,7 @@
 
                             <div class="row g-3">
                                 <div class="col-12 col-lg-4">
-                                    <label class="form-label fw-semibold" for="branch_codigo">Codigo</label>
+                                    <label class="form-label fw-semibold" for="branch_codigo">Código</label>
                                     <input id="branch_codigo" name="codigo" type="text" class="form-control<?= ! empty($errors['codigo']) ? ' is-invalid' : '' ?>" value="<?= esc($branchForm['codigo'] ?? '') ?>" required>
                                     <?php if (! empty($errors['codigo'])): ?><div class="invalid-feedback d-block"><?= esc($errors['codigo']) ?></div><?php endif; ?>
                                 </div>
@@ -63,7 +63,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <label class="form-label fw-semibold" for="branch_direccion">Direccion</label>
+                                    <label class="form-label fw-semibold" for="branch_direccion">Dirección</label>
                                     <textarea id="branch_direccion" name="direccion" class="form-control<?= ! empty($errors['direccion']) ? ' is-invalid' : '' ?>" rows="4"><?= esc($branchForm['direccion'] ?? '') ?></textarea>
                                     <?php if (! empty($errors['direccion'])): ?><div class="invalid-feedback d-block"><?= esc($errors['direccion']) ?></div><?php endif; ?>
                                 </div>

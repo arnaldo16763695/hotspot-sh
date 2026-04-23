@@ -47,23 +47,23 @@
                                 <div><span class="badge text-bg-light border"><?= esc(ucfirst((string) $cliente['estado'])) ?></span></div>
                             </div>
                             <div class="admin-item">
-                                <strong>Acepta terminos</strong>
-                                <div><?= (int) ($cliente['acepta_terminos'] ?? 0) === 1 ? 'Si' : 'No' ?></div>
+                                <strong>Acepta términos</strong>
+                                <div><?= (int) ($cliente['acepta_terminos'] ?? 0) === 1 ? 'Sí' : 'No' ?></div>
                             </div>
                             <div class="admin-item">
                                 <strong>Acepta promociones</strong>
-                                <div><?= (int) ($cliente['acepta_promociones'] ?? 0) === 1 ? 'Si' : 'No' ?></div>
+                                <div><?= (int) ($cliente['acepta_promociones'] ?? 0) === 1 ? 'Sí' : 'No' ?></div>
                             </div>
                             <div class="admin-item">
                                 <strong>Fecha de registro</strong>
                                 <div><?= ! empty($cliente['fecha_registro']) ? esc(date('d/m/Y h:i A', strtotime((string) $cliente['fecha_registro']))) : 'Sin registro' ?></div>
                             </div>
                             <div class="admin-item">
-                                <strong>Ultima sesion</strong>
+                                <strong>Última sesión</strong>
                                 <div><?= ! empty($cliente['ultima_sesion']) ? esc(date('d/m/Y h:i A', strtotime((string) $cliente['ultima_sesion']))) : 'Sin sesiones' ?></div>
                             </div>
                             <div>
-                                <strong>Ultima sucursal</strong>
+                                <strong>Última sucursal</strong>
                                 <div><?= esc($cliente['ultima_sucursal'] ?? 'Sin sucursal') ?></div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                     <tbody>
                                         <?php if ($sesiones === []): ?>
                                             <tr>
-                                                <td colspan="5" class="text-center text-body-secondary py-4">Este cliente aun no tiene sesiones registradas.</td>
+                                                <td colspan="5" class="text-center text-body-secondary py-4">Este cliente aún no tiene sesiones registradas.</td>
                                             </tr>
                                         <?php endif; ?>
                                         <?php foreach ($sesiones as $sesion): ?>
@@ -126,7 +126,7 @@
                                         <tr>
                                             <th>Fecha</th>
                                             <th>Tipo</th>
-                                            <th>Descripcion</th>
+                                            <th>Descripción</th>
                                         </tr>
                                     </thead>
                                     <tbody>

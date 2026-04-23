@@ -18,7 +18,7 @@
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-3">
                     <div>
                         <span class="admin-badge">Usuarios admin</span>
-                        <h1 class="admin-title mt-4 mb-2 fw-bold">Gestion de usuarios administrativos.</h1>
+                        <h1 class="admin-title mt-4 mb-2 fw-bold">Gestión de usuarios administrativos.</h1>
                         <p class="admin-copy mb-0">Consulta los usuarios del panel y entra a formularios dedicados para crear o editar sin congestionar la tabla.</p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                                 <th>Correo</th>
                                 <th>Rol</th>
                                 <th>Estado</th>
-                                <th>Ultimo login</th>
+                                <th>Último login</th>
                                 <th class="text-end">Acciones</th>
                             </tr>
                         </thead>

@@ -16,7 +16,7 @@
                 <div>
                     <span class="admin-badge">Dashboard Admin</span>
                     <h1 class="admin-title mt-4 mb-2 fw-bold">Bienvenido, <?= esc($auth['nombre'] ?? 'Administrador') ?>.</h1>
-                    <p class="admin-copy mb-0">Tu sesion ya esta protegida y lista para crecer con modulos de clientes, sesiones, campanas y configuracion operativa.</p>
+                    <p class="admin-copy mb-0">Tu sesión ya está protegida y lista para crecer con módulos de clientes, sesiones, campañas y configuración operativa.</p>
                 </div>
             </div>
 
@@ -33,14 +33,14 @@
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="admin-placeholder h-100 p-4">
-                        <h2 class="h5 mb-2">Proximo modulo</h2>
-                        <p class="mb-0">Administracion de sucursales, routers y monitoreo operativo del hotspot.</p>
+                        <h2 class="h5 mb-2">Próximo módulo</h2>
+                        <p class="mb-0">Administración de sucursales, routers y monitoreo operativo del hotspot.</p>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="admin-placeholder h-100 p-4">
                         <h2 class="h5 mb-2">Seguridad</h2>
-                        <p class="mb-0">Acceso protegido por sesion y preparado para restricciones por rol.</p>
+                        <p class="mb-0">Acceso protegido por sesión y preparado para restricciones por rol.</p>
                     </div>
                 </div>
             </div>

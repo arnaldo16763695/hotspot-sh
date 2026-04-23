@@ -13,12 +13,12 @@
             <section class="col-12 col-lg-7">
                 <div class="hotspot-card h-100">
                     <span class="hotspot-eyebrow">Hotspot WiFi gratuito</span>
-                    <h1 class="hotspot-title mt-4 mb-3 fw-bold">Conectate en pocos pasos.</h1>
-                    <p class="hotspot-copy fs-5 mb-0">Ingresa tu celular para validar si ya puedes acceder. Si aun no estas registrado, te pediremos tus datos para activar tu navegacion gratuita.</p>
+                    <h1 class="hotspot-title mt-4 mb-3 fw-bold">Conéctate en pocos pasos.</h1>
+                    <p class="hotspot-copy fs-5 mb-0">Ingresa tu celular para validar si ya puedes acceder. Si aún no estás registrado, te pediremos tus datos para activar tu navegación gratuita.</p>
 
                     <?php if (! empty($branchInfo['branch_name'])): ?>
                         <div class="alert hotspot-status mt-4 mb-0">
-                            Estas navegando desde: <strong><?= esc($branchInfo['branch_name']) ?></strong>
+                            Estás navegando desde: <strong><?= esc($branchInfo['branch_name']) ?></strong>
                             <?php if (! empty($branchInfo['router_name'])): ?>
                                 <br>Hotspot asignado: <?= esc($branchInfo['router_name']) ?>
                             <?php endif; ?>
@@ -31,7 +31,7 @@
 
                     <?php if (! empty($waitUntil)): ?>
                         <div class="hotspot-wait mt-3 p-3">
-                            Podras volver a conectarte despues de:
+                            Podrás volver a conectarte después de:
                             <strong><?= esc(date('d/m/Y h:i A', strtotime((string) $waitUntil))) ?></strong>
                         </div>
                     <?php endif; ?>
@@ -56,7 +56,7 @@
                                     </div>
 
                                     <div class="col-12 col-md-6">
-                                        <label class="form-label fw-semibold" for="correo">Correo electronico</label>
+                                        <label class="form-label fw-semibold" for="correo">Correo electrónico</label>
                                         <input id="correo" name="correo" type="email" class="form-control hotspot-input<?= ! empty($errors['correo']) ? ' is-invalid' : '' ?>" value="<?= esc($old['correo'] ?? '') ?>" required>
                                         <?php if (! empty($errors['correo'])): ?><div class="invalid-feedback d-block"><?= esc($errors['correo']) ?></div><?php endif; ?>
                                     </div>
@@ -78,7 +78,7 @@
                                 <div class="hotspot-check mt-4 p-3<?= ! empty($errors['acepta_terminos']) ? ' is-invalid' : '' ?>">
                                     <div class="form-check m-0">
                                         <input id="acepta_terminos" name="acepta_terminos" type="checkbox" class="form-check-input" value="1" required <?= ! empty($old['acepta_terminos']) ? 'checked' : '' ?>>
-                                        <label class="form-check-label fw-semibold" for="acepta_terminos">Acepto los terminos de uso y la politica de privacidad.</label>
+                                        <label class="form-check-label fw-semibold" for="acepta_terminos">Acepto los términos de uso y la política de privacidad.</label>
                                     </div>
                                 </div>
                                 <?php if (! empty($errors['acepta_terminos'])): ?><div class="invalid-feedback d-block"><?= esc($errors['acepta_terminos']) ?></div><?php endif; ?>
@@ -103,7 +103,7 @@
                                 <?= csrf_field() ?>
 
                                 <div class="mb-3">
-                                    <label class="form-label fw-semibold" for="celular">Numero de celular</label>
+                                    <label class="form-label fw-semibold" for="celular">Número de celular</label>
                                     <input id="celular" name="celular" type="text" class="form-control hotspot-input<?= ! empty($errors['celular']) ? ' is-invalid' : '' ?>" value="<?= esc($old['celular'] ?? '') ?>" placeholder="Ejemplo: 04121234567" required>
                                     <?php if (! empty($errors['celular'])): ?><div class="invalid-feedback d-block"><?= esc($errors['celular']) ?></div><?php endif; ?>
                                 </div>
@@ -128,7 +128,7 @@
                         <h2 class="h4 fw-bold mb-3">Como funciona</h2>
                         <div class="d-grid gap-3">
                             <div class="hotspot-side-item">
-                                <strong class="d-block mb-1">1. Validacion rapida</strong>
+                                <strong class="d-block mb-1">1. Validación rápida</strong>
                                 <p class="mb-0">Primero verificamos tu celular y el router del hotspot para saber si ya puedes entrar o si necesitas registrarte.</p>
                             </div>
                             <div class="hotspot-side-item">
@@ -137,15 +137,15 @@
                             </div>
                             <div class="hotspot-side-item">
                                 <strong class="d-block mb-1">3. Acceso por sucursal</strong>
-                                <p class="mb-0">Cada sesion queda ligada a la sucursal y al MikroTik que corresponden a ese punto de acceso.</p>
+                                <p class="mb-0">Cada sesión queda ligada a la sucursal y al MikroTik que corresponden a ese punto de acceso.</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="small text-secondary mt-4 d-grid gap-2">
                         <span>Ventana entre accesos: 3 horas</span>
-                        <span>Identificacion publica mediante router_code</span>
-                        <span>Portal preparado para campanas futuras por correo y SMS</span>
+                        <span>Identificación pública mediante router_code</span>
+                        <span>Portal preparado para campañas futuras por correo y SMS</span>
                     </div>
                 </div>
             </aside>
@@ -175,7 +175,7 @@
                         termsCheckbox.setCustomValidity('');
                         termsWrapper.classList.remove('is-invalid');
                     } else {
-                        termsCheckbox.setCustomValidity('Debes aceptar los terminos y la politica de privacidad para continuar.');
+                        termsCheckbox.setCustomValidity('Debes aceptar los términos y la política de privacidad para continuar.');
                         termsWrapper.classList.add('is-invalid');
                     }
                 };

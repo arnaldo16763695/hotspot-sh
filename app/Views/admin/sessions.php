@@ -16,7 +16,7 @@
                 <div>
                     <span class="admin-badge">Sesiones</span>
                     <h1 class="admin-title mt-4 mb-2 fw-bold">Actividad del hotspot.</h1>
-                    <p class="admin-copy mb-0">Monitorea sesiones autorizadas, rechazos, sucursal de origen y datos tecnicos de conexion.</p>
+                    <p class="admin-copy mb-0">Monitorea sesiones autorizadas, rechazos, sucursal de origen y datos técnicos de conexión.</p>
                 </div>
             </div>
 

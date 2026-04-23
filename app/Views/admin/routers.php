@@ -16,7 +16,7 @@
                 <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-3">
                     <div>
                         <span class="admin-badge">Routers</span>
-                        <h1 class="admin-title mt-4 mb-2 fw-bold">Gestion de routers MikroTik.</h1>
+                        <h1 class="admin-title mt-4 mb-2 fw-bold">Gestión de routers MikroTik.</h1>
                         <p class="admin-copy mb-0">Consulta los routers configurados y entra a formularios dedicados para alta o edicion sin comprimir la tabla principal.</p>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <table class="table table-hover align-middle">
                         <thead>
                             <tr>
-                                <th>Codigo</th>
+                                <th>Código</th>
                                 <th>Router</th>
                                 <th>Sucursal</th>
                                 <th>Host</th>

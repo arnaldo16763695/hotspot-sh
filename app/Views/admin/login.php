@@ -14,12 +14,12 @@
                 <div class="admin-card h-100 p-4 p-lg-5">
                     <span class="admin-badge">Acceso administrativo</span>
                     <h1 class="admin-title mt-4 mb-3 fw-bold">Panel privado del hotspot.</h1>
-                    <p class="admin-copy mb-0">Desde aqui se iran habilitando los modulos de clientes, sesiones, sucursales, routers y futuras campanas. El portal cautivo publico sigue disponible aparte.</p>
+                    <p class="admin-copy mb-0">Desde aquí se irán habilitando los módulos de clientes, sesiones, sucursales, routers y futuras campañas. El portal cautivo público sigue disponible aparte.</p>
 
                     <div class="mt-4 d-grid gap-3">
                         <div class="admin-item">
                             <strong class="d-block mb-1">Login protegido</strong>
-                            <p class="admin-copy mb-0">El acceso al admin ya usa sesiones y contrasenas con hash seguro.</p>
+                            <p class="admin-copy mb-0">El acceso al admin ya usa sesiones y contraseñas con hash seguro.</p>
                         </div>
                         <div class="admin-item">
                             <strong class="d-block mb-1">Roles base</strong>
@@ -27,7 +27,7 @@
                         </div>
                         <div class="admin-item">
                             <strong class="d-block mb-1">Portal separado</strong>
-                            <p class="admin-copy mb-0">El flujo del hotspot sigue viviendo en su propia ruta publica y no depende de este login.</p>
+                            <p class="admin-copy mb-0">El flujo del hotspot sigue viviendo en su propia ruta pública y no depende de este login.</p>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
 
             <section class="col-12 col-lg-5">
                 <div class="admin-card h-100 p-4 p-lg-5">
-                    <h2 class="h3 mb-2">Iniciar sesion</h2>
+                    <h2 class="h3 mb-2">Iniciar sesión</h2>
                     <p class="admin-copy mb-0">Ingresa con tu usuario administrador para entrar al panel.</p>
 
                     <?php if (! empty($status)): ?>
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label fw-semibold" for="password">Contrasena</label>
+                            <label class="form-label fw-semibold" for="password">Contraseña</label>
                             <input id="password" name="password" type="password" class="form-control<?= ! empty($errors['password']) ? ' is-invalid' : '' ?>" required>
                             <?php if (! empty($errors['password'])): ?><div class="invalid-feedback d-block"><?= esc($errors['password']) ?></div><?php endif; ?>
                         </div>
@@ -66,7 +66,7 @@
                     <div class="admin-placeholder mt-4 p-3">
                         Usuario inicial del seeder:
                         <strong>admin@wifi.ajedev.com</strong><br>
-                        Contrasena inicial:
+                        Contraseña inicial:
                         <strong>Admin123*</strong>
                     </div>
                 </div>

@@ -15,7 +15,7 @@
             <div>
                 <span class="admin-badge">Roles</span>
                 <h1 class="admin-title mt-4 mb-2 fw-bold">Roles administrativos.</h1>
-                <p class="admin-copy mb-0">Aqui se muestran los roles base del sistema. En una siguiente fase podemos convertirlo en un CRUD completo de permisos.</p>
+                <p class="admin-copy mb-0">Aquí se muestran los roles base del sistema. En una siguiente fase podemos convertirlo en un CRUD completo de permisos.</p>
             </div>
 
             <?php if (! empty($status)): ?>
@@ -26,9 +26,9 @@
                 <table class="table table-hover align-middle">
                     <thead>
                         <tr>
-                            <th>Codigo</th>
+                            <th>Código</th>
                             <th>Nombre</th>
-                            <th>Descripcion</th>
+                            <th>Descripción</th>
                             <th>Estado</th>
                         </tr>
                     </thead>

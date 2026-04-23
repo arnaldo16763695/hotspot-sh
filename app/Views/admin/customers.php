@@ -62,7 +62,7 @@
                                 <th>Promos</th>
                                 <th>Estado</th>
                                 <th>Registro</th>
-                                <th>Ultima sesion</th>
+                                <th>Última sesión</th>
                                 <th>Sucursal</th>
                             </tr>
                         </thead>

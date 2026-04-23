@@ -42,6 +42,7 @@ El MVP debe resolver únicamente el flujo de captura, validación y autorizació
 - El correo es obligatorio para usuarios nuevos.
 - No se debe duplicar un cliente por celular.
 - El frontend debe ser simple, rápido y usable en móviles.
+- Todos los textos visibles al usuario deben escribirse en español correcto, con tildes, signos y ortografía adecuados.
 - La lógica de negocio debe vivir en backend, no en el frontend.
 - La integración con MikroTik debe quedar desacoplada para poder cambiar el mecanismo más adelante si hace falta.
 

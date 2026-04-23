@@ -61,9 +61,9 @@
                                 </div>
 
                                 <div class="col-12 col-lg-6">
-                                    <label class="form-label fw-semibold" for="user_password">Contrasena</label>
+                                    <label class="form-label fw-semibold" for="user_password">Contraseña</label>
                                     <input id="user_password" name="password" type="password" class="form-control<?= ! empty($errors['password']) ? ' is-invalid' : '' ?>" <?= empty($userForm['id']) ? 'required' : '' ?>>
-                                    <div class="form-text">En edicion puedes dejarla vacia para conservar la contrasena actual.</div>
+                                    <div class="form-text">En edición puedes dejarla vacía para conservar la contraseña actual.</div>
                                     <?php if (! empty($errors['password'])): ?><div class="invalid-feedback d-block"><?= esc($errors['password']) ?></div><?php endif; ?>
                                 </div>
 
