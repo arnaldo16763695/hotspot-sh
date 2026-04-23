@@ -17,18 +17,40 @@ class BranchesController extends BaseController
         $auth = session()->get('admin_auth') ?? [];
         $branchModel = new SucursalModel();
         $search = trim((string) $this->request->getGet('search'));
-        $editId = (int) $this->request->getGet('edit');
 
         return view('admin/branches', [
             'auth' => is_array($auth) ? $auth : [],
             'status' => session()->getFlashdata('status'),
             'currentPage' => 'branches',
-            'errors' => session()->getFlashdata('errors') ?? [],
-            'old' => session()->getFlashdata('old') ?? [],
             'search' => $search,
             'sucursales' => $branchModel->listForAdmin($search),
-            'editBranch' => $editId > 0 ? $branchModel->find($editId) : null,
         ]);
+    }
+
+    public function create(): string|\CodeIgniter\HTTP\RedirectResponse
+    {
+        if ($guard = $this->ensureAccess()) {
+            return $guard;
+        }
+
+        return $this->renderForm('create');
+    }
+
+    public function edit(int $id): string|\CodeIgniter\HTTP\RedirectResponse
+    {
+        if ($guard = $this->ensureAccess()) {
+            return $guard;
+        }
+
+        $branchModel = new SucursalModel();
+        $branch = $branchModel->find($id);
+
+        if ($branch === null) {
+            return redirect()->to(site_url('admin/branches'))
+                ->with('status', 'No encontramos la sucursal solicitada.');
+        }
+
+        return $this->renderForm('edit', $branch);
     }
 
     public function save(): \CodeIgniter\HTTP\RedirectResponse
@@ -48,7 +70,7 @@ class BranchesController extends BaseController
         $id = (int) $this->request->getPost('id');
 
         if (! $this->validate($rules)) {
-            return redirect()->to(site_url('admin/branches?edit=' . $id))
+            return redirect()->to(site_url($id > 0 ? 'admin/branches/edit/' . $id : 'admin/branches/create'))
                 ->with('errors', $this->validator->getErrors())
                 ->with('old', $this->request->getPost());
         }
@@ -63,7 +85,7 @@ class BranchesController extends BaseController
             ->first();
 
         if ($duplicateCode !== null) {
-            return redirect()->to(site_url('admin/branches' . ($id > 0 ? '?edit=' . $id : '')))
+            return redirect()->to(site_url($id > 0 ? 'admin/branches/edit/' . $id : 'admin/branches/create'))
                 ->with('errors', ['codigo' => 'Ya existe una sucursal con ese codigo.'])
                 ->with('status', 'No pudimos guardar la sucursal porque el codigo ya esta en uso.')
                 ->with('old', $this->request->getPost());
@@ -74,7 +96,7 @@ class BranchesController extends BaseController
             ->first();
 
         if ($duplicateName !== null) {
-            return redirect()->to(site_url('admin/branches' . ($id > 0 ? '?edit=' . $id : '')))
+            return redirect()->to(site_url($id > 0 ? 'admin/branches/edit/' . $id : 'admin/branches/create'))
                 ->with('errors', ['nombre' => 'Ya existe una sucursal con ese nombre.'])
                 ->with('status', 'No pudimos guardar la sucursal porque el nombre ya esta registrado.')
                 ->with('old', $this->request->getPost());
@@ -105,7 +127,7 @@ class BranchesController extends BaseController
         } catch (\Throwable $exception) {
             log_message('error', 'Admin branches save failed: {error}', ['error' => $exception->getMessage()]);
 
-            return redirect()->to(site_url('admin/branches' . ($id > 0 ? '?edit=' . $id : '')))
+            return redirect()->to(site_url($id > 0 ? 'admin/branches/edit/' . $id : 'admin/branches/create'))
                 ->with('status', 'Ocurrio un error al guardar la sucursal. Intenta nuevamente.')
                 ->with('old', $this->request->getPost());
         }
@@ -145,5 +167,20 @@ class BranchesController extends BaseController
         }
 
         return null;
+    }
+
+    private function renderForm(string $mode, ?array $branch = null): string
+    {
+        $auth = session()->get('admin_auth') ?? [];
+
+        return view('admin/branch_form', [
+            'auth' => is_array($auth) ? $auth : [],
+            'status' => session()->getFlashdata('status'),
+            'errors' => session()->getFlashdata('errors') ?? [],
+            'old' => session()->getFlashdata('old') ?? [],
+            'branch' => $branch,
+            'mode' => $mode,
+            'currentPage' => 'branches',
+        ]);
     }
 }

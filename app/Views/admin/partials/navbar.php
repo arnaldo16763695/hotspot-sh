@@ -21,12 +21,12 @@ $currentPage = $currentPage ?? '';
                     <a class="nav-link admin-nav-link<?= $currentPage === 'sessions' ? ' active' : '' ?>" href="<?= site_url('admin/sessions') ?>">Sesiones</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle admin-nav-link<?= $currentPage === 'management' ? ' active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle admin-nav-link<?= in_array($currentPage, ['management', 'users', 'roles', 'branches', 'routers'], true) ? ' active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Administracion
                     </a>
                     <ul class="dropdown-menu admin-dropdown-menu">
-                        <li><a class="dropdown-item" href="<?= site_url('admin/management#usuarios') ?>">Usuarios</a></li>
-                        <li><a class="dropdown-item" href="<?= site_url('admin/management#roles') ?>">Roles</a></li>
+                        <li><a class="dropdown-item" href="<?= site_url('admin/users') ?>">Usuarios</a></li>
+                        <li><a class="dropdown-item" href="<?= site_url('admin/roles') ?>">Roles</a></li>
                         <li><a class="dropdown-item" href="<?= site_url('admin/branches') ?>">Sucursales</a></li>
                         <li><a class="dropdown-item" href="<?= site_url('admin/routers') ?>">Routers</a></li>
                     </ul>

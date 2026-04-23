@@ -17,21 +17,41 @@ class RoutersController extends BaseController
 
         $auth = session()->get('admin_auth') ?? [];
         $routerModel = new MikrotikRouterModel();
-        $branchModel = new SucursalModel();
         $search = trim((string) $this->request->getGet('search'));
-        $editId = (int) $this->request->getGet('edit');
 
         return view('admin/routers', [
             'auth' => is_array($auth) ? $auth : [],
             'status' => session()->getFlashdata('status'),
             'currentPage' => 'routers',
-            'errors' => session()->getFlashdata('errors') ?? [],
-            'old' => session()->getFlashdata('old') ?? [],
             'search' => $search,
             'routers' => $routerModel->listForAdmin($search),
-            'sucursales' => $branchModel->listForAdmin(),
-            'editRouter' => $editId > 0 ? $routerModel->find($editId) : null,
         ]);
+    }
+
+    public function create(): string|\CodeIgniter\HTTP\RedirectResponse
+    {
+        if ($guard = $this->ensureAccess()) {
+            return $guard;
+        }
+
+        return $this->renderForm('create');
+    }
+
+    public function edit(int $id): string|\CodeIgniter\HTTP\RedirectResponse
+    {
+        if ($guard = $this->ensureAccess()) {
+            return $guard;
+        }
+
+        $routerModel = new MikrotikRouterModel();
+        $router = $routerModel->find($id);
+
+        if ($router === null) {
+            return redirect()->to(site_url('admin/routers'))
+                ->with('status', 'No encontramos el router solicitado.');
+        }
+
+        return $this->renderForm('edit', $router);
     }
 
     public function save(): \CodeIgniter\HTTP\RedirectResponse
@@ -54,7 +74,7 @@ class RoutersController extends BaseController
         ];
 
         if (! $this->validate($rules)) {
-            return redirect()->to(site_url('admin/routers?edit=' . $routerId))
+            return redirect()->to(site_url($routerId > 0 ? 'admin/routers/edit/' . $routerId : 'admin/routers/create'))
                 ->with('errors', $this->validator->getErrors())
                 ->with('old', $this->request->getPost());
         }
@@ -71,7 +91,7 @@ class RoutersController extends BaseController
             ->first();
 
         if ($duplicateCode !== null) {
-            return redirect()->to(site_url('admin/routers' . ($routerId > 0 ? '?edit=' . $routerId : '')))
+            return redirect()->to(site_url($routerId > 0 ? 'admin/routers/edit/' . $routerId : 'admin/routers/create'))
                 ->with('errors', ['codigo' => 'Ya existe un router con ese codigo.'])
                 ->with('status', 'No pudimos guardar el router porque el codigo ya esta en uso.')
                 ->with('old', $this->request->getPost());
@@ -82,7 +102,7 @@ class RoutersController extends BaseController
             ->first();
 
         if ($duplicateName !== null) {
-            return redirect()->to(site_url('admin/routers' . ($routerId > 0 ? '?edit=' . $routerId : '')))
+            return redirect()->to(site_url($routerId > 0 ? 'admin/routers/edit/' . $routerId : 'admin/routers/create'))
                 ->with('errors', ['nombre_router' => 'Ya existe un router con ese nombre.'])
                 ->with('status', 'No pudimos guardar el router porque el nombre ya esta registrado.')
                 ->with('old', $this->request->getPost());
@@ -93,7 +113,7 @@ class RoutersController extends BaseController
             ->first();
 
         if ($duplicateHost !== null) {
-            return redirect()->to(site_url('admin/routers' . ($routerId > 0 ? '?edit=' . $routerId : '')))
+            return redirect()->to(site_url($routerId > 0 ? 'admin/routers/edit/' . $routerId : 'admin/routers/create'))
                 ->with('errors', ['host' => 'Ya existe un router configurado con ese host.'])
                 ->with('status', 'No pudimos guardar el router porque el host ya esta registrado.')
                 ->with('old', $this->request->getPost());
@@ -129,7 +149,7 @@ class RoutersController extends BaseController
         } catch (\Throwable $exception) {
             log_message('error', 'Admin routers save failed: {error}', ['error' => $exception->getMessage()]);
 
-            return redirect()->to(site_url('admin/routers' . ($routerId > 0 ? '?edit=' . $routerId : '')))
+            return redirect()->to(site_url($routerId > 0 ? 'admin/routers/edit/' . $routerId : 'admin/routers/create'))
                 ->with('status', 'Ocurrio un error al guardar el router. Intenta nuevamente.')
                 ->with('old', $this->request->getPost());
         }
@@ -169,5 +189,22 @@ class RoutersController extends BaseController
         }
 
         return null;
+    }
+
+    private function renderForm(string $mode, ?array $router = null): string
+    {
+        $auth = session()->get('admin_auth') ?? [];
+        $branchModel = new SucursalModel();
+
+        return view('admin/router_form', [
+            'auth' => is_array($auth) ? $auth : [],
+            'status' => session()->getFlashdata('status'),
+            'errors' => session()->getFlashdata('errors') ?? [],
+            'old' => session()->getFlashdata('old') ?? [],
+            'router' => $router,
+            'mode' => $mode,
+            'sucursales' => $branchModel->listForAdmin(),
+            'currentPage' => 'routers',
+        ]);
     }
 }

@@ -39,4 +39,25 @@ class AdminUserModel extends Model
             ->where('roles_admin.estado', 'activo')
             ->first();
     }
+
+    public function listForAdmin(?string $search = null): array
+    {
+        $builder = $this->builder();
+        $builder->select('usuarios_admin.*, roles_admin.codigo as role_code, roles_admin.nombre as role_name');
+        $builder->join('roles_admin', 'roles_admin.id = usuarios_admin.role_id', 'left');
+
+        if ($search !== null && trim($search) !== '') {
+            $search = trim($search);
+            $builder->groupStart()
+                ->like('usuarios_admin.nombre', $search)
+                ->orLike('usuarios_admin.email', $search)
+                ->orLike('roles_admin.nombre', $search)
+                ->groupEnd();
+        }
+
+        return $builder
+            ->orderBy('usuarios_admin.nombre', 'ASC')
+            ->get()
+            ->getResultArray();
+    }
 }
