@@ -11,6 +11,7 @@ $routes->get('admin/login', 'Admin\AuthController::login');
 $routes->get('admin/logout', 'Admin\AuthController::logout', ['filter' => 'adminauth']);
 $routes->get('admin', 'Admin\DashboardController::index', ['filter' => 'adminauth']);
 $routes->get('admin/customers', 'Admin\CustomersController::index', ['filter' => 'adminauth']);
+$routes->get('admin/customers/(:num)', 'Admin\CustomersController::show/$1', ['filter' => 'adminauth']);
 $routes->get('admin/sessions', 'Admin\SessionsController::index', ['filter' => 'adminauth']);
 $routes->get('admin/users', 'Admin\UsersController::index', ['filter' => 'adminauth']);
 $routes->get('admin/users/create', 'Admin\UsersController::create', ['filter' => 'adminauth']);

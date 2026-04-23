@@ -51,4 +51,16 @@ class ClienteModel extends Model
 
         return $this->paginate($perPage, 'clientes', null, 0, $builder);
     }
+
+    public function findForAdminDetail(int $clienteId): ?array
+    {
+        $builder = $this->builder();
+        $builder->select('clientes.*, MAX(sesiones_hotspot.fecha_inicio) as ultima_sesion, sucursales.nombre as ultima_sucursal');
+        $builder->join('sesiones_hotspot', 'sesiones_hotspot.cliente_id = clientes.id', 'left');
+        $builder->join('sucursales', 'sucursales.id = sesiones_hotspot.sucursal_id', 'left');
+        $builder->where('clientes.id', $clienteId);
+        $builder->groupBy('clientes.id');
+
+        return $builder->get()->getRowArray() ?: null;
+    }
 }

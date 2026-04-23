@@ -50,7 +50,7 @@
                     </select>
                 </div>
                 <div class="col-12 col-lg-1 d-flex align-items-end">
-                    <button type="submit" class="btn admin-primary-btn text-white w-100">Filtrar</button>
+                    <button type="submit" class="btn d-flex justify-content-center  admin-primary-btn text-white w-100">Filtrar</button>
                 </div>
             </form>
 
@@ -76,7 +76,7 @@
                         <?php foreach ($clientes as $cliente): ?>
                             <tr>
                                 <td>
-                                    <strong><?= esc($cliente['nombre']) ?></strong><br>
+                                    <a class="text-decoration-none fw-semibold" href="<?= site_url('admin/customers/' . $cliente['id']) ?>"><?= esc($cliente['nombre']) ?></a><br>
                                     <span class="text-body-secondary small">ID <?= esc((string) $cliente['id']) ?></span>
                                 </td>
                                 <td>

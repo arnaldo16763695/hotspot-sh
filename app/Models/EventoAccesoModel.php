@@ -32,4 +32,11 @@ class EventoAccesoModel extends Model
             'fecha_evento' => Time::now()->toDateTimeString(),
         ]);
     }
+
+    public function findByClienteForAdmin(int $clienteId, int $limit = 30): array
+    {
+        return $this->where('cliente_id', $clienteId)
+            ->orderBy('fecha_evento', 'DESC')
+            ->findAll($limit);
+    }
 }

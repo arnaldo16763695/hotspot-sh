@@ -63,4 +63,13 @@ class SesionHotspotModel extends Model
 
         return $this->paginate($perPage, 'sesiones', null, 0, $builder);
     }
+
+    public function findByClienteForAdmin(int $clienteId, int $limit = 20): array
+    {
+        return $this->select('sesiones_hotspot.*, sucursales.nombre as sucursal_nombre')
+            ->join('sucursales', 'sucursales.id = sesiones_hotspot.sucursal_id', 'left')
+            ->where('sesiones_hotspot.cliente_id', $clienteId)
+            ->orderBy('sesiones_hotspot.fecha_inicio', 'DESC')
+            ->findAll($limit);
+    }
 }
