@@ -19,17 +19,17 @@
                         <h1 class="admin-title mt-4 mb-2 fw-bold">Gestion de routers MikroTik.</h1>
                         <p class="admin-copy mb-0">Consulta los routers configurados y entra a formularios dedicados para alta o edicion sin comprimir la tabla principal.</p>
                     </div>
-                    <div class="d-flex flex-wrap gap-2">
-                        <form class="row g-2" method="get" action="<?= site_url('admin/routers') ?>">
-                            <div class="col-auto">
-                                <input type="text" name="search" class="form-control" value="<?= esc($search ?? '') ?>" placeholder="Buscar router">
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn admin-secondary-btn">Filtrar</button>
-                            </div>
-                        </form>
-                        <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/routers/create') ?>">Nuevo router</a>
-                    </div>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <form class="row g-2 flex-grow-1" method="get" action="<?= site_url('admin/routers') ?>">
+                        <div class="col-auto">
+                            <input type="text" name="search" class="form-control" value="<?= esc($search ?? '') ?>" placeholder="Buscar router">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn admin-secondary-btn">Filtrar</button>
+                        </div>
+                    </form>
+                    <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/routers/create') ?>">Nuevo router</a>
                 </div>
 
                 <?php if (! empty($status)): ?>

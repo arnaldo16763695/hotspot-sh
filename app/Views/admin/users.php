@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/admin.css') ?>">
 </head>
+
 <body class="admin-body py-4">
     <main class="container-fluid px-3 px-lg-4">
         <div class="mx-auto admin-shell">
@@ -19,17 +21,17 @@
                         <h1 class="admin-title mt-4 mb-2 fw-bold">Gestion de usuarios administrativos.</h1>
                         <p class="admin-copy mb-0">Consulta los usuarios del panel y entra a formularios dedicados para crear o editar sin congestionar la tabla.</p>
                     </div>
-                    <div class="d-flex flex-wrap gap-2">
-                        <form class="row g-2" method="get" action="<?= site_url('admin/users') ?>">
-                            <div class="col-auto">
-                                <input type="text" name="search" class="form-control" value="<?= esc($search ?? '') ?>" placeholder="Buscar usuario">
-                            </div>
-                            <div class="col-auto">
-                                <button type="submit" class="btn admin-secondary-btn">Filtrar</button>
-                            </div>
-                        </form>
-                        <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/users/create') ?>">Nuevo usuario</a>
-                    </div>
+                </div>
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <form class="row g-2 flex-grow-1" method="get" action="<?= site_url('admin/users') ?>">
+                        <div class="col-auto">
+                            <input type="text" name="search" class="form-control" value="<?= esc($search ?? '') ?>" placeholder="Buscar usuario">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn admin-secondary-btn">Filtrar</button>
+                        </div>
+                    </form>
+                    <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/users/create') ?>">Nuevo usuario</a>
                 </div>
 
                 <?php if (! empty($status)): ?>
@@ -80,4 +82,5 @@
     </main>
     <script src="<?= base_url('assets/bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js') ?>"></script>
 </body>
+
 </html>
