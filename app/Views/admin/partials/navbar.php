@@ -14,6 +14,12 @@ $currentPage = $currentPage ?? '';
                 <li class="nav-item">
                     <a class="nav-link admin-nav-link<?= $currentPage === 'dashboard' ? ' active' : '' ?>" href="<?= site_url('admin') ?>">Dashboard</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link admin-nav-link<?= $currentPage === 'customers' ? ' active' : '' ?>" href="<?= site_url('admin/customers') ?>">Clientes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link admin-nav-link<?= $currentPage === 'sessions' ? ' active' : '' ?>" href="<?= site_url('admin/sessions') ?>">Sesiones</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle admin-nav-link<?= $currentPage === 'management' ? ' active' : '' ?>" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Administracion
