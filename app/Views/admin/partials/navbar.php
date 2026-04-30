@@ -45,7 +45,7 @@ $brandLogo = base_url('assets/img/sh-logo.png');
                     <strong><?= esc($auth['nombre'] ?? 'Administrador') ?></strong>
                     <span class="d-block"><?= esc($auth['role_name'] ?? 'Sin rol') ?></span>
                 </div>
-                <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/logout') ?>">Cerrar sesi�n</a>
+                <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/logout') ?>">Cerrar sesión</a>
             </div>
         </div>
     </div>
