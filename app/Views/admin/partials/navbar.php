@@ -1,10 +1,14 @@
 <?php
 $auth = $auth ?? [];
 $currentPage = $currentPage ?? '';
+$brandLogo = base_url('assets/img/sh-logo.png');
 ?>
 <nav class="navbar navbar-expand-lg admin-navbar mb-4">
     <div class="container-fluid px-0">
-        <a class="navbar-brand admin-navbar-brand" href="<?= site_url('admin') ?>">WiFi Admin</a>
+        <a class="navbar-brand admin-navbar-brand" href="<?= site_url('admin') ?>">
+            <img src="<?= esc($brandLogo) ?>" alt="Shanghai Pizza" class="admin-brand-logo">
+            <span>WiFi Admin</span>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbar" aria-controls="adminNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -41,7 +45,7 @@ $currentPage = $currentPage ?? '';
                     <strong><?= esc($auth['nombre'] ?? 'Administrador') ?></strong>
                     <span class="d-block"><?= esc($auth['role_name'] ?? 'Sin rol') ?></span>
                 </div>
-                <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/logout') ?>">Cerrar sesión</a>
+                <a class="btn admin-primary-btn text-white" href="<?= site_url('admin/logout') ?>">Cerrar sesi�n</a>
             </div>
         </div>
     </div>

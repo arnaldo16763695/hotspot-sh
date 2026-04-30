@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin</title>
-    <link rel="stylesheet" href="<?= base_url('assets/bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/admin.css') ?>">
-</head>
-<body class="admin-body d-flex align-items-center py-4">
-    <main class="container admin-shell">
+<?= $this->extend('layouts/admin_auth') ?>
+
+<?= $this->section('title') ?>Login Admin<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+<main class="container admin-shell">
         <div class="row g-4">
             <section class="col-12 col-lg-7">
                 <div class="admin-card h-100 p-4 p-lg-5">
+                    <img src="<?= base_url('assets/img/sh-logo.png') ?>" alt="Shanghai Pizza" class="admin-login-logo mb-4">
                     <span class="admin-badge">Acceso administrativo</span>
                     <h1 class="admin-title mt-4 mb-3 fw-bold">Panel privado del hotspot.</h1>
                     <p class="admin-copy mb-0">Desde aquí se irán habilitando los módulos de clientes, sesiones, sucursales, routers y futuras campañas. El portal cautivo público sigue disponible aparte.</p>
@@ -35,6 +31,7 @@
 
             <section class="col-12 col-lg-5">
                 <div class="admin-card h-100 p-4 p-lg-5">
+                    <img src="<?= base_url('assets/img/sh-logo.png') ?>" alt="Shanghai Pizza" class="admin-login-logo mb-4">
                     <h2 class="h3 mb-2">Iniciar sesión</h2>
                     <p class="admin-copy mb-0">Ingresa con tu usuario administrador para entrar al panel.</p>
 
@@ -73,5 +70,4 @@
             </section>
         </div>
     </main>
-</body>
-</html>
+<?= $this->endSection() ?>

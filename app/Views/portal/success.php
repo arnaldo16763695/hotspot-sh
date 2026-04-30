@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso activado</title>
-    <link rel="stylesheet" href="<?= base_url('assets/bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/hotspot.css') ?>">
-</head>
-<body class="hotspot-success-body d-flex align-items-center justify-content-center p-3">
-    <main class="hotspot-success-card">
+<?= $this->extend('layouts/portal_centered') ?>
+
+<?= $this->section('title') ?>Acceso activado<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+<main class="hotspot-success-card">
         <h1 class="display-6 fw-bold mb-3">Acceso activado</h1>
         <p class="mb-3"><?= esc($nombre) ?>, tu navegación gratuita fue habilitada correctamente.</p>
         <?php if (! empty($branch_name)): ?>
@@ -20,5 +15,4 @@
         </div>
         <a class="btn hotspot-outline-btn mt-4" href="<?= site_url('hotspot') ?>">Volver al portal</a>
     </main>
-</body>
-</html>
+<?= $this->endSection() ?>

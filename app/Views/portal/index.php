@@ -1,15 +1,9 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso WiFi</title>
-    <link rel="stylesheet" href="<?= base_url('assets/bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/hotspot.css') ?>">
-</head>
-<body class="hotspot-body py-4">
-    <main class="container hotspot-shell">
-        <div class="row g-4 align-items-stretch">
+<?= $this->extend('layouts/portal') ?>
+
+<?= $this->section('title') ?>Acceso WiFi<?= $this->endSection() ?>
+
+<?= $this->section('content') ?>
+<div class="row g-4 align-items-stretch">
             <section class="col-12 col-lg-7">
                 <div class="hotspot-card h-100">
                     <span class="hotspot-eyebrow">Hotspot WiFi gratuito</span>
@@ -150,10 +144,10 @@
                 </div>
             </aside>
         </div>
-    </main>
+<?= $this->endSection() ?>
 
-    <script src="<?= base_url('assets/bootstrap/bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js') ?>"></script>
-    <script>
+<?= $this->section('scripts') ?>
+<script>
         (function () {
             const registerForm = document.querySelector('form[action$="hotspot/register"]');
 
@@ -189,5 +183,4 @@
             }
         })();
     </script>
-</body>
-</html>
+<?= $this->endSection() ?>
