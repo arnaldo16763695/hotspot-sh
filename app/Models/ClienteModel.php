@@ -25,9 +25,23 @@ class ClienteModel extends Model
     public function paginateForAdmin(array $filters, int $perPage = 15): array
     {
         $builder = $this->builder();
-        $builder->select('clientes.*, MAX(sesiones_hotspot.fecha_inicio) as ultima_sesion, sucursales.nombre as ultima_sucursal');
-        $builder->join('sesiones_hotspot', 'sesiones_hotspot.cliente_id = clientes.id', 'left');
-        $builder->join('sucursales', 'sucursales.id = sesiones_hotspot.sucursal_id', 'left');
+        $builder->select(
+            "clientes.*,
+            (
+                SELECT MAX(sh.fecha_inicio)
+                FROM sesiones_hotspot sh
+                WHERE sh.cliente_id = clientes.id
+            ) as ultima_sesion,
+            (
+                SELECT s.nombre
+                FROM sesiones_hotspot sh2
+                LEFT JOIN sucursales s ON s.id = sh2.sucursal_id
+                WHERE sh2.cliente_id = clientes.id
+                ORDER BY sh2.fecha_inicio DESC, sh2.id DESC
+                LIMIT 1
+            ) as ultima_sucursal",
+            false
+        );
 
         if (! empty($filters['search'])) {
             $search = trim((string) $filters['search']);
@@ -43,10 +57,18 @@ class ClienteModel extends Model
         }
 
         if (! empty($filters['sucursal_id'])) {
-            $builder->where('sesiones_hotspot.sucursal_id', (int) $filters['sucursal_id']);
+            $builder->where(
+                'EXISTS (
+                    SELECT 1
+                    FROM sesiones_hotspot shf
+                    WHERE shf.cliente_id = clientes.id
+                    AND shf.sucursal_id = ' . (int) $filters['sucursal_id'] . '
+                )',
+                null,
+                false
+            );
         }
 
-        $builder->groupBy('clientes.id');
         $builder->orderBy('clientes.fecha_registro', 'DESC');
 
         return $this->paginate($perPage, 'clientes', null, 0, $builder);
@@ -55,11 +77,24 @@ class ClienteModel extends Model
     public function findForAdminDetail(int $clienteId): ?array
     {
         $builder = $this->builder();
-        $builder->select('clientes.*, MAX(sesiones_hotspot.fecha_inicio) as ultima_sesion, sucursales.nombre as ultima_sucursal');
-        $builder->join('sesiones_hotspot', 'sesiones_hotspot.cliente_id = clientes.id', 'left');
-        $builder->join('sucursales', 'sucursales.id = sesiones_hotspot.sucursal_id', 'left');
+        $builder->select(
+            "clientes.*,
+            (
+                SELECT MAX(sh.fecha_inicio)
+                FROM sesiones_hotspot sh
+                WHERE sh.cliente_id = clientes.id
+            ) as ultima_sesion,
+            (
+                SELECT s.nombre
+                FROM sesiones_hotspot sh2
+                LEFT JOIN sucursales s ON s.id = sh2.sucursal_id
+                WHERE sh2.cliente_id = clientes.id
+                ORDER BY sh2.fecha_inicio DESC, sh2.id DESC
+                LIMIT 1
+            ) as ultima_sucursal",
+            false
+        );
         $builder->where('clientes.id', $clienteId);
-        $builder->groupBy('clientes.id');
 
         return $builder->get()->getRowArray() ?: null;
     }
